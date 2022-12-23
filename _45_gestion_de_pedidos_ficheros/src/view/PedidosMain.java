@@ -1,7 +1,6 @@
 package view;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -81,7 +80,7 @@ public class PedidosMain {
 			System.out.println("Precio: "+pedido.getPrecio());
 		}
 		static void mostrarPedidos() {
-			ArrayList<Pedido>todos=pedidosService.todos();
+			Pedido[] todos=pedidosService.todos();
 			for (Pedido p: todos) {
 				System.out.println("Producto: "+ p.getProducto());
 				System.out.println("Fecha: "+p.getFecha());
