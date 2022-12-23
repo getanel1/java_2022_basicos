@@ -1,11 +1,10 @@
 package view;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
-import java.text.ParseException;
-import model.Pedido;
 
-import java.text.SimpleDateFormat;
+import model.Pedido;
 
 
 public class PedidosMain {
@@ -18,7 +17,10 @@ public class PedidosMain {
 			int opcion;	
 			do {
 				mostrarMenu();
-				opcion=sc.nextInt();
+				try {	
+					
+				
+				opcion=Integer.parseInt(sc.nextLine());
 				switch(opcion) {
 				case 1:
 					grabarPedido();
@@ -32,9 +34,14 @@ public class PedidosMain {
 
 				case 4:
 					System.out.println("___Adios_____");
-
+				    }
 				}
+			   catch(NumberFormatException ex) {
+					System.out.println("Debes elegir opcion correcta ");
+					opcion=0;//para que vuelva a generar el bucle
+			   }
 			}while (opcion!=4);
+         
 
 		}
 		static void mostrarMenu() {
@@ -55,13 +62,16 @@ public class PedidosMain {
 			System.out.println("Introduce producto");
 			producto=sc.nextLine();
 			System.out.println("Introduce fecha (dia/mes/año)");
-			fecha=format.parse(sc.nextLine());
-			System.out.println("Introduce precio");
-			precio=Double.parseDouble(sc.nextLine());
+			try {
+			    fecha=format.parse(sc.nextLine());
+			    System.out.println("Introduce precio");
+			    precio=Double.parseDouble(sc.nextLine());
+			    pedidosService.guardarPedido(producto, fecha, precio);
 
-
-			pedidosService..guardarPedido(producto, fecha, precio);
-
+		}
+			catch(Parsexception ex) {
+				System.out.println("La fecha no es válida y el pédido no se guardará");
+			}
 		}
 		static void buscarPedidoMasReciente() {
 			Pedido pedido=pedidosService.pedidoMasReciente();
